@@ -1,5 +1,4 @@
 const express = require('express');
-var dateFormat = require('dateformat');
 
 const Snippet = require('./Snippet.js');
 
@@ -20,8 +19,7 @@ app.post('/snippets', (req, res) => {
   let snippet = new Snippet(baseURL + "/snippets", req.body.name, req.body.expires_in, req.body.snippet);
 
   snippetMap.set(snippetName, snippet);
-  //snippet.expires_at = dateFormat(snippet.expires_at, "yyyy-MM-dd'T'HH:mm:ssZ");
-  res.status(201).send(snippet);
+  res.status(201).send(snippet.getFormattedResponse());
 });
 
 app.get('/snippets/:snippetName', (req, res) => {
@@ -32,8 +30,7 @@ app.get('/snippets/:snippetName', (req, res) => {
     snippetMap.delete(snippet);
     res.status(404).send("Snippet not found: may have expired");
   } else {
-    snippet.expires_at = dateFormat(snippet.expires_at, "yyyy-MM-dd'T'HH:mm:ssZ");
-    res.status(200).send(snippet);
+    res.status(200).send(snippet.getFormattedResponse());
   }
 });
 

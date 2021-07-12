@@ -1,3 +1,5 @@
+var dateFormat = require('dateformat');
+
 class Snippet {
 
   constructor(baseUrl, name, expires_in, snippet) {
@@ -7,8 +9,13 @@ class Snippet {
     this.snippet = snippet;
   }
 
-  getCreateResponse() {
-    return this;
+  getFormattedResponse() {
+    const formattedSnippet = new Object();
+    formattedSnippet.url = this.url;
+    formattedSnippet.name = this.name;
+    formattedSnippet.expires_at = dateFormat(this.expires_at, "yyyy-MM-dd'T'HH:mm:ssZ");
+    formattedSnippet.snippet = this.snippet;
+    return formattedSnippet;
   }
 
   hasExpired() {
