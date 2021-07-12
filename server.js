@@ -20,7 +20,7 @@ app.post('/snippets', (req, res) => {
   let snippet = new Snippet(baseURL + "/snippets", req.body.name, req.body.expires_in, req.body.snippet);
 
   snippetMap.set(snippetName, snippet);
-  snippet.expires_at = dateFormat(snippet.expires_at, "yyyy-MM-dd'T'HH:mm:ssZ");
+  //snippet.expires_at = dateFormat(snippet.expires_at, "yyyy-MM-dd'T'HH:mm:ssZ");
   res.status(201).send(snippet);
 });
 
